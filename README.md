@@ -21,7 +21,7 @@
 
 ## Licencia
 
-Este proyecto está protegido bajo la [Licencia Personalizada de Andres Stiven Araque](./LICENSE).  
+Este proyecto está protegido bajo la [Licencia Personalizada de Andres Stiven Araque](./LICENSE.md).  
 El uso, modificación o redistribución de este proyecto está prohibido sin mi autorización previa. Para más información, o para solicitar el uso del proyecto, contáctame en [aaraqueamaya397@gmail.com](mailto:aaraqueamaya397@gmail.com).
 
 ## Contacto
