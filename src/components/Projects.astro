@@ -9,11 +9,15 @@ import JSIcon from './icons/JS.astro';
 import MySQL from './icons/MySQL.astro';
 import Bootstrap from './icons/Bootstrap.astro';
 import AstroIcon from './icons/Aastro.astro';
+import ReactIcon from './icons/React.astro';
+import NodeJsIcon from './icons/Nodejs.astro';
+import NpmIcon from './icons/Npm.astro';
+import ViteJSIcon from './icons/ViteJS.astro';
 
 const TAGS = {
   PHP: {
     name: 'PHP',
-    class: 'bg-purple-500 text-white',
+    class: 'bg-purple-600 text-white',
     icon: PHPIcon,
   },
   JS: {
@@ -33,7 +37,7 @@ const TAGS = {
   },
   Astro: {
     name: 'Astro',
-    class: 'bg-purple-900 text-white',
+    class: 'bg-purple-950 text-white',
     icon: AstroIcon,
   },
   NEXT: {
@@ -45,6 +49,26 @@ const TAGS = {
     name: 'Tailwind CSS',
     class: 'bg-[#003159] text-white',
     icon: Tailwind,
+  },
+  REACT: {
+    name: 'React',
+    class: 'bg-blue-800 text-white',
+    icon: ReactIcon,
+  },
+  NODEJS: {
+    name: 'Node.js',
+    class: 'bg-green-900 text-white',
+    icon: NodeJsIcon,
+  },
+  NPM: {
+    name: 'NPM',
+    class: 'bg-red-950 text-white',
+    icon: NpmIcon,
+  },
+  VITEJS: {
+    name: 'Vite',
+    class: 'bg-[#646cff] text-white',
+    icon: ViteJSIcon,
   },
 };
 
@@ -76,49 +100,76 @@ const PROJECTS = [
     image: '/projects/proximaPelicula.webp',
     tags: [TAGS.PHP],
   },
+  {
+    title: 'Random Commits',
+    description:
+      'Es una herramienta ligera y práctica que genera mensajes creativos y entretenidos de manera aleatoria. Ideal para quienes buscan agregar un toque de humor y originalidad a sus proyectos.',
+    link: 'https://www.npmjs.com/package/random-str-msg-aa',
+    github: 'https://github.com/Mono-A3/random-str-msg-aa',
+    image: '/projects/randomCommits.webp',
+    tags: [TAGS.NODEJS, TAGS.JS, TAGS.NPM],
+  },
+  {
+    title: 'Todo Machine',
+    description:
+      'Es un proyecto desarrollado con React.js, con el objetivo de comprender y aplicar las bases del desarrollo de aplicaciones web modernas. La aplicación demuestra el uso de componentes reutilizables, manejo de estado y eventos, y buenas prácticas en la organización del código.',
+    link: 'https://mono-a3.github.io/todo-machine/',
+    github: 'https://github.com/Mono-A3/todo-machine',
+    image: '/projects/todosMachine.webp',
+    tags: [TAGS.NODEJS, TAGS.JS, TAGS.REACT, TAGS.TAILWIND],
+  },
+  {
+    title: 'E-commerce Shopi',
+    description:
+      'E-commerce Shopi es una aplicación de comercio electrónico que combina un frontend dinámico con React.js y Vite.js, y un backend desarrollado en Node.js. La aplicación utiliza Tailwind CSS para estilos, ofreciendo una interfaz moderna.',
+    link: 'https://shopi-andres.netlify.app/',
+    github: 'https://github.com/Mono-A3/e-commerce-shopi',
+    image: '/projects/ecommerceShopi.webp',
+    tags: [TAGS.NODEJS, TAGS.JS, TAGS.REACT, TAGS.TAILWIND, TAGS.VITEJS],
+  },
 ];
 ---
 
-<div class="flex flex-col gap-y-16">
+<div class='flex flex-col gap-y-16'>
   {
     PROJECTS.map(({ image, title, description, tags, link, github }) => (
-      <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
-        <div class="w-full md:w-1/2">
-          <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+      <article class='flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0'>
+        <div class='w-full md:w-1/2'>
+          <div class='relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50'>
             <img
-              alt="Imagen del Proyecto"
-              class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
-              loading="lazy"
+              alt='Imagen del Proyecto'
+              class='object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105'
+              loading='lazy'
               src={image}
             />
           </div>
         </div>
 
-        <div class="w-full md:w-1/2 md:max-w-lg">
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">{title}</h3>
-          <div class="flex flex-wrap mt-2">
-            <ul class="flex flex-row mb-2 gap-x-2">
+        <div class='w-full md:w-1/2 md:max-w-lg'>
+          <h3 class='text-2xl font-bold text-gray-800 dark:text-gray-100'>{title}</h3>
+          <div class='flex flex-wrap mt-2'>
+            <ul class='flex flex-wrap gap-2 max-w-[300px]'>
               {tags.map((tag) => (
                 <li>
                   <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
-                    <tag.icon class="size-4" />
+                    <tag.icon class='size-4' />
                     {tag.name}
                   </span>
                 </li>
               ))}
             </ul>
 
-            <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
-            <footer class="flex items-end justify-start mt-4 gap-x-4">
+            <div class='mt-2 text-gray-700 dark:text-gray-400'>{description}</div>
+            <footer class='flex items-end justify-start mt-4 gap-x-4'>
               {github && (
                 <LinkButton href={github}>
-                  <GitHub class="size-6" />
+                  <GitHub class='size-6' />
                   Code
                 </LinkButton>
               )}
               {link && (
                 <LinkButton href={link}>
-                  <Link class="size-4" />
+                  <Link class='size-4' />
                   Preview
                 </LinkButton>
               )}
