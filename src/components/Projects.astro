@@ -10,9 +10,10 @@ import MySQL from './icons/MySQL.astro';
 import Bootstrap from './icons/Bootstrap.astro';
 import AstroIcon from './icons/Aastro.astro';
 import ReactIcon from './icons/React.astro';
-import NodeJsIcon from './icons/Nodejs.astro';
+import NodeJSIcon from './icons/NodeJS.astro';
 import NpmIcon from './icons/Npm.astro';
 import ViteJSIcon from './icons/ViteJS.astro';
+import CSSIcon from './icons/CSS.astro';
 
 const TAGS = {
   PHP: {
@@ -58,7 +59,7 @@ const TAGS = {
   NODEJS: {
     name: 'Node.js',
     class: 'bg-green-900 text-white',
-    icon: NodeJsIcon,
+    icon: NodeJSIcon,
   },
   NPM: {
     name: 'NPM',
@@ -69,6 +70,11 @@ const TAGS = {
     name: 'Vite',
     class: 'bg-[#646cff] text-white',
     icon: ViteJSIcon,
+  },
+  CSS: {
+    name: 'CSS',
+    class: 'bg-[#1572B6] text-white',
+    icon: CSSIcon,
   },
 };
 
@@ -89,7 +95,7 @@ const PROJECTS = [
     link: 'https://andresaraque.com',
     github: 'https://github.com/Mono-A3/AndresAraque',
     image: '/projects/AndresAraque.webp',
-    tags: [TAGS.Astro, TAGS.TAILWIND, TAGS.JS],
+    tags: [TAGS.Astro, TAGS.TAILWIND, TAGS.JS, TAGS.NODEJS],
   },
   {
     title: 'Próxima Película Marvel',
@@ -116,7 +122,7 @@ const PROJECTS = [
     link: 'https://mono-a3.github.io/todo-machine/',
     github: 'https://github.com/Mono-A3/todo-machine',
     image: '/projects/todosMachine.webp',
-    tags: [TAGS.NODEJS, TAGS.JS, TAGS.REACT, TAGS.TAILWIND],
+    tags: [TAGS.REACT, TAGS.CSS, TAGS.NODEJS, TAGS.JS],
   },
   {
     title: 'E-commerce Shopi',
@@ -125,7 +131,7 @@ const PROJECTS = [
     link: 'https://shopi-andres.netlify.app/',
     github: 'https://github.com/Mono-A3/e-commerce-shopi',
     image: '/projects/ecommerceShopi.webp',
-    tags: [TAGS.NODEJS, TAGS.JS, TAGS.REACT, TAGS.TAILWIND, TAGS.VITEJS],
+    tags: [TAGS.VITEJS, TAGS.REACT, TAGS.TAILWIND, TAGS.NODEJS, TAGS.JS],
   },
 ];
 ---
@@ -148,7 +154,7 @@ const PROJECTS = [
         <div class='w-full md:w-1/2 md:max-w-lg'>
           <h3 class='text-2xl font-bold text-gray-800 dark:text-gray-100'>{title}</h3>
           <div class='flex flex-wrap mt-2'>
-            <ul class='flex flex-wrap gap-2 max-w-[300px]'>
+            <ul class='flex flex-wrap gap-2 max-w-[400px]'>
               {tags.map((tag) => (
                 <li>
                   <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
