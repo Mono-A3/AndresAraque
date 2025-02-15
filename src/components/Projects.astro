@@ -14,6 +14,7 @@ import NodeJSIcon from './icons/NodeJS.astro';
 import NpmIcon from './icons/Npm.astro';
 import ViteJSIcon from './icons/ViteJS.astro';
 import CSSIcon from './icons/CSS.astro';
+import HTMLIcon from './icons/HTML.astro';
 
 const TAGS = {
   PHP: {
@@ -73,8 +74,13 @@ const TAGS = {
   },
   CSS: {
     name: 'CSS',
-    class: 'bg-[#1572B6] text-white',
+    class: 'bg-blue-800 text-white',
     icon: CSSIcon,
+  },
+  HTML: {
+    name: 'HTML',
+    class: 'bg-orange-800 text-white',
+    icon: HTMLIcon,
   },
 };
 
@@ -97,6 +103,16 @@ const PROJECTS = [
     image: '/projects/AndresAraque.webp',
     tags: [TAGS.Astro, TAGS.TAILWIND, TAGS.JS, TAGS.NODEJS],
   },
+  {
+    title: 'Personal Upcoming',
+    description:
+      'Es una landing page minimalista y atractiva que comunica a los usuarios que algo emocionante está en camino. Utiliza un estilo de videojuegos retro.',
+    link: 'https://andresaraque.com/upcoming',
+    github: 'https://github.com/Mono-A3/Personal-Upcoming',
+    image: '/projects/upcoming.webp',
+    tags: [TAGS.Astro, TAGS.HTML, TAGS.CSS, TAGS.JS, TAGS.NODEJS],
+  },
+
   {
     title: 'Próxima Película Marvel',
     description:
