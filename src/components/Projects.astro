@@ -158,11 +158,23 @@ const PROJECTS = [
     tags: [TAGS.VITEJS, TAGS.REACT, TAGS.TAILWIND, TAGS.NODEJS, TAGS.JS],
   },
 ];
+
+// Pagination
+const ITEMS_PER_PAGE = 3;
+let currentPage = 1;
+
+const totalPages = Math.ceil(PROJECTS.length / ITEMS_PER_PAGE);
+
+function getPaginatedProjects() {
+  return PROJECTS.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+}
+
+let paginatedProjects = getPaginatedProjects();
 ---
 
-<div class='flex flex-col gap-y-16'>
+<div class='flex flex-col gap-y-16 projects-container'>
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+    paginatedProjects.map(({ image, title, description, tags, link, github }) => (
       <article class='flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0'>
         <div class='w-full md:w-1/2'>
           <div class='relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50'>
@@ -188,25 +200,84 @@ const PROJECTS = [
                 </li>
               ))}
             </ul>
-
-            <div class='mt-2 text-gray-700 dark:text-gray-400'>{description}</div>
-            <footer class='flex items-end justify-start mt-4 gap-x-4'>
-              {github && (
-                <LinkButton href={github}>
-                  <GitHub class='size-6' />
-                  Code
-                </LinkButton>
-              )}
-              {link && (
-                <LinkButton href={link}>
-                  <Link class='size-4' />
-                  Preview
-                </LinkButton>
-              )}
-            </footer>
           </div>
+          <div class='mt-2 text-gray-700 dark:text-gray-400'>{description}</div>
+          <footer class='flex items-end justify-start mt-4 gap-x-4'>
+            {github && (
+              <LinkButton href={github}>
+                <GitHub class='size-6' />
+                Code
+              </LinkButton>
+            )}
+            {link && (
+              <LinkButton href={link}>
+                <Link class='size-4' />
+                Preview
+              </LinkButton>
+            )}
+          </footer>
         </div>
       </article>
     ))
   }
+</div>
+
+<div class='flex justify-center mt-8'>
+  <button
+    class='px-4 py-2 mx-2 text-white bg-gray-800 rounded disabled:opacity-50'
+    id='btn-previous'
+    disabled={currentPage === 1}
+  >
+    Anterior
+  </button>
+  <span class='px-4 py-2 mx-2 pagination-info'>
+    Página {currentPage} de {totalPages}
+  </span>
+  <button
+    class='px-4 py-2 mx-2 text-white bg-gray-800 rounded disabled:opacity-50'
+    id='btn-next'
+    disabled={currentPage === totalPages}
+  >
+    Siguiente
+  </button>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    let currentPage = 1;
+    const ITEMS_PER_PAGE = 3;
+    const PROJECTS = JSON.parse(document.getElementById('projects-data').textContent);
+    const totalPages = Math.ceil(PROJECTS.length / ITEMS_PER_PAGE);
+
+    function getPaginatedProjects() {
+      return PROJECTS.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    }
+
+    function updatePagination() {
+      document.querySelector('.pagination-info').textContent = `Página ${currentPage} de ${totalPages}`;
+      document.getElementById('btn-previous').disabled = currentPage === 1;
+      document.getElementById('btn-next').disabled = currentPage === totalPages;
+    }
+
+    document.getElementById('btn-next').addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePagination();
+      }
+    });
+
+    document.getElementById('btn-previous').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePagination();
+      }
+    });
+
+    updatePagination();
+  });
+</script>
+
+<!-- Hidden element to store projects data -->
+<div id='projects-data' style='display: none;'>
+  {JSON.stringify(PROJECTS)}
 </div>
