@@ -161,123 +161,118 @@ const PROJECTS = [
 
 // Pagination
 const ITEMS_PER_PAGE = 3;
-let currentPage = 1;
-
-const totalPages = Math.ceil(PROJECTS.length / ITEMS_PER_PAGE);
-
-function getPaginatedProjects() {
-  return PROJECTS.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
-}
-
-let paginatedProjects = getPaginatedProjects();
 ---
 
-<div class='flex flex-col gap-y-16 projects-container'>
+<div class="flex flex-col items-center gap-y-16 px-4 projects-container">
   {
-    paginatedProjects.map(({ image, title, description, tags, link, github }) => (
-      <article class='flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0'>
-        <div class='w-full md:w-1/2'>
-          <div class='relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50'>
-            <img
-              alt='Imagen del Proyecto'
-              class='object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105'
-              loading='lazy'
-              src={image}
-            />
-          </div>
-        </div>
+    PROJECTS.map(({ image, title, description, tags, link, github }, index) => {
+      const page = Math.floor(index / ITEMS_PER_PAGE) + 1;
+      return (
+        <article
+          class="project-item flex flex-col space-y-8 group md:flex-row md:space-x-8 md:space-y-0 w-full max-w-4xl"
 
-        <div class='w-full md:w-1/2 md:max-w-lg'>
-          <h3 class='text-2xl font-bold text-gray-800 dark:text-gray-100'>{title}</h3>
-          <div class='flex flex-wrap mt-2'>
-            <ul class='flex flex-wrap gap-2 max-w-[400px]'>
-              {tags.map((tag) => (
-                <li>
-                  <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
-                    <tag.icon class='size-4' />
-                    {tag.name}
-                  </span>
-                </li>
-              ))}
-            </ul>
+          data-page={page}
+          style={page === 1 ? "display: flex;" : "display: none;"}
+        >
+          <!-- Imagen -->
+          <div class="w-full md:w-1/2 flex justify-center">
+            <div class="relative flex flex-col items-center gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+              <img
+                alt="Imagen del Proyecto"
+                class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
+                loading="eager"
+                src={image}
+              />
+            </div>
           </div>
-          <div class='mt-2 text-gray-700 dark:text-gray-400'>{description}</div>
-          <footer class='flex items-end justify-start mt-4 gap-x-4'>
-            {github && (
-              <LinkButton href={github}>
-                <GitHub class='size-6' />
-                Code
-              </LinkButton>
-            )}
-            {link && (
-              <LinkButton href={link}>
-                <Link class='size-4' />
-                Preview
-              </LinkButton>
-            )}
-          </footer>
-        </div>
-      </article>
-    ))
+
+          <!-- Contenido -->
+          <div class="w-full md:w-1/2 flex flex-col justify-center">
+            <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">{title}</h3>
+            <div class="flex flex-wrap mt-2">
+              <ul class="flex flex-row flex-wrap mb-2 gap-x-2">
+                {tags.map((tag) => (
+                  <li>
+                    <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
+                      <tag.icon class="size-4" />
+                      {tag.name}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="mt-2 text-gray-700 dark:text-gray-400">{description}</div>
+            <footer class="flex items-end justify-start mt-4 gap-x-4">
+              {github && (
+                <LinkButton href={github}>
+                  <GitHub class="size-6" />
+                  Code
+                </LinkButton>
+              )}
+              {link && (
+                <LinkButton href={link}>
+                  <Link class="size-4" />
+                  Preview
+                </LinkButton>
+              )}
+            </footer>
+          </div>
+        </article>
+      );
+    })
   }
 </div>
 
+<!-- Controles de paginación -->
 <div class='flex justify-center mt-8'>
-  <button
-    class='px-4 py-2 mx-2 text-white bg-gray-800 rounded disabled:opacity-50'
-    id='btn-previous'
-    disabled={currentPage === 1}
-  >
+  <button class='px-4 py-2 mx-2 text-white bg-gray-800 rounded disabled:opacity-50' id='btn-previous' disabled>
     Anterior
   </button>
-  <span class='px-4 py-2 mx-2 pagination-info'>
-    Página {currentPage} de {totalPages}
-  </span>
-  <button
-    class='px-4 py-2 mx-2 text-white bg-gray-800 rounded disabled:opacity-50'
-    id='btn-next'
-    disabled={currentPage === totalPages}
-  >
-    Siguiente
-  </button>
+
+  <span class='px-4 py-2 mx-2 pagination-info'> Página 1 de 1 </span>
+
+  <button class='px-4 py-2 mx-2 text-white bg-gray-800 rounded disabled:opacity-50' id='btn-next'> Siguiente </button>
 </div>
 
+<!-- Script de paginación SIN SimplePagination.js -->
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('DOMContentLoaded', function () {
+    const itemsPerPage = 3;
+    const projects = document.querySelectorAll('.project-item');
+    const totalPages = Math.ceil(projects.length / itemsPerPage);
     let currentPage = 1;
-    const ITEMS_PER_PAGE = 3;
-    const PROJECTS = JSON.parse(document.getElementById('projects-data').textContent);
-    const totalPages = Math.ceil(PROJECTS.length / ITEMS_PER_PAGE);
 
-    function getPaginatedProjects() {
-      return PROJECTS.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+    function showPage(page) {
+      projects.forEach((project) => {
+        project.style.display = project.getAttribute('data-page') == page ? 'flex' : 'none';
+      });
+
+      // Actualiza el texto de la paginación
+      document.querySelector('.pagination-info').textContent = `Página ${page} de ${totalPages}`;
+
+      // Habilita o deshabilita botones
+      document.getElementById('btn-previous').disabled = page === 1;
+      document.getElementById('btn-next').disabled = page === totalPages;
     }
 
-    function updatePagination() {
-      document.querySelector('.pagination-info').textContent = `Página ${currentPage} de ${totalPages}`;
-      document.getElementById('btn-previous').disabled = currentPage === 1;
-      document.getElementById('btn-next').disabled = currentPage === totalPages;
-    }
-
-    document.getElementById('btn-next').addEventListener('click', () => {
+    // Eventos de los botones
+    document.getElementById('btn-next').addEventListener('click', function () {
       if (currentPage < totalPages) {
         currentPage++;
-        updatePagination();
+        showPage(currentPage);
       }
     });
 
-    document.getElementById('btn-previous').addEventListener('click', () => {
+    document.getElementById('btn-previous').addEventListener('click', function () {
       if (currentPage > 1) {
         currentPage--;
-        updatePagination();
+        showPage(currentPage);
       }
     });
 
-    updatePagination();
+    // Iniciar en la primera página
+    showPage(1);
   });
 </script>
 
-<!-- Hidden element to store projects data -->
-<div id='projects-data' style='display: none;'>
-  {JSON.stringify(PROJECTS)}
-</div>
