@@ -1,9 +1,11 @@
 ---
+import LinkButton from '../common/LinkButton.astro';
+import ButtonPagination from '../common/ButtonPagination.astro';
+
 import GitHub from '../icons/GitHub.astro';
 import NextJS from '../icons/NextJS.astro';
 import Tailwind from '../icons/Tailwind.astro';
 import Link from '../icons/Link.astro';
-import LinkButton from '../common/LinkButton.astro';
 import PHPIcon from '../icons/PHP.astro';
 import JSIcon from '../icons/JS.astro';
 import MySQL from '../icons/MySQL.astro';
@@ -246,29 +248,15 @@ const ITEMS_PER_PAGE = 3;
 
 <!-- Controles de paginación -->
 <div class="flex justify-center mt-8">
-  <button 
-    class="px-4 py-2 mx-2 rounded transition border border-gray-300 bg-gray-100 text-gray-800 
-    hover:bg-gray-200 hover:border-gray-400 
-    dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700
-    disabled:opacity-50 disabled:cursor-not-allowed"
-    id="btn-previous"
-    disabled
-  >
+  <ButtonPagination id="btn-previous">
     Anterior
-  </button>
+  </ButtonPagination>
 
   <span class="px-4 py-2 mx-2 pagination-info"> Página 1 de 1 </span>
 
-  <button 
-    class="px-4 py-2 mx-2 rounded transition border border-gray-300 bg-gray-100 text-gray-800 
-    hover:bg-gray-200 hover:border-gray-400 
-    dark:bg-gray-800 dark:border-gray-600 dark:text-white dark:hover:bg-gray-700
-    disabled:opacity-50 disabled:cursor-not-allowed"
-    id="btn-next"
-    disabled
-  >
+  <ButtonPagination id="btn-next">
     Siguiente
-  </button>
+  </ButtonPagination>
 </div>
 
 <!-- Script de paginación SIN SimplePagination.js -->
